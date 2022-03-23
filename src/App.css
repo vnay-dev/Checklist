@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
 
 * {
   margin: 0;
@@ -6,15 +6,30 @@
 }
 
 .App {
-  background: rgb(230, 230, 230);
+  background: rgb(219, 219, 219);
   height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 49vw;
+}
+
+.task-input {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.title{
-    margin: 1em;
-    font-family: 'Work sans';
-    font-size: 2rem;
+.task-input .title {
+  margin: 1em auto;
+  font-family: "Work sans";
+  font-size: 2rem;
+}
+
+@media only screen and (max-width:912px){
+  .container{
+    width: 100vw;
+  }  
 }

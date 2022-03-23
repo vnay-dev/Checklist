@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import "./App.css";
 import InputField from "./components/InputField/InputField";
+import TaskList from "./components/TaskList/TaskList";
 import { Todo } from "./models";
 
 const App: React.FC = () => {
@@ -14,7 +15,7 @@ const App: React.FC = () => {
         ...taskList,
         {
           id: Date.now(),
-          tasks: tasks,
+          task: tasks,
           isCompleted: false,
         },
       ]);
@@ -22,16 +23,19 @@ const App: React.FC = () => {
     }
   };
 
-  console.log(taskList)
-
   return (
     <div className="App">
-      <span className="title">Checklist</span>
-      <InputField
-        tasks={tasks}
-        setTasks={setTasks}
-        submitTask={addTaskToList}
-      />
+      <div className="container">
+        <div className="task-input">
+          <span className="title">Checklist</span>
+          <InputField
+            tasks={tasks}
+            setTasks={setTasks}
+            submitTask={addTaskToList}
+          />
+        </div>
+        <TaskList taskList={taskList} setTaskLists={setTaskLists} />
+      </div>
     </div>
   );
 };

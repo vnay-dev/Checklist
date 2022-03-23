@@ -1,0 +1,24 @@
+.task-card {
+  background: rgb(201, 201, 201);
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  padding: 0.75em 1em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+}
+
+.task-functions {
+  display: flex;
+  width: 10vw;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width:912px){
+  .task-card{
+    width:49vw;
+  }
+  .task-functions{
+    width:20vw;
+  }
+}

@@ -1,16 +1,10 @@
-.form {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .form input {
   border: 1px solid rgb(219, 219, 219);
   outline: none;
   padding: 1em;
-  width: 50vw;
   border-radius: 0.75em;
   font-family: "Work sans";
+  width: 40vw;
 }
 
 .form button {
@@ -19,7 +13,7 @@
   outline: none;
   background: rgb(3, 202, 109);
   padding: 1em;
-  margin: 0em 1em;
+  margin-left:1em;
   color: white;
   font-family: "Work sans";
 }
