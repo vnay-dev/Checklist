@@ -14,6 +14,10 @@
   justify-content: space-around;
 }
 
+.icon:hover{
+  cursor:pointer;
+}
+
 @media only screen and (max-width:912px){
   .task-card{
     width:49vw;
