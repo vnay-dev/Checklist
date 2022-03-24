@@ -12,15 +12,30 @@ interface Props {
 const TaskList: React.FC<Props> = ({ taskList, setTaskLists, dispatch }) => {
   return (
     <div className="list">
-      {taskList.map((item) => (
-        <TaskCard
-          key={item.id}
-          currTask={item}
-          setTaskLists={setTaskLists}
-          taskList={taskList}
-          dispatch={dispatch}
-        />
-      ))}
+      <div className="todoBox">
+        <span className="todoBox-heading">Current tasks</span>
+        {taskList.map((item) => (
+          <TaskCard
+            key={item.id}
+            currTask={item}
+            setTaskLists={setTaskLists}
+            taskList={taskList}
+            dispatch={dispatch}
+          />
+        ))}
+      </div>
+      <div className="todoBox">
+        <span className="todoBox-heading">Completed tasks</span>
+        {taskList.map((item) => (
+          <TaskCard
+            key={item.id}
+            currTask={item}
+            setTaskLists={setTaskLists}
+            taskList={taskList}
+            dispatch={dispatch}
+          />
+        ))}
+      </div>
     </div>
   );
 };
