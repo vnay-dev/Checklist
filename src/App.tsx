@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useReducer, useState } from "react";
+import React, { useReducer, useState } from "react";
 import "./App.css";
 import InputField from "./components/InputField/InputField";
 import TaskList from "./components/TaskList/TaskList";
@@ -30,7 +30,7 @@ const App: React.FC = () => {
             submitTask={addTaskToList}
           />
         </div>
-        <TaskList taskList={taskListState} setTaskLists={setTaskLists} />
+        <TaskList taskList={taskListState} setTaskLists={setTaskLists} dispatch={dispatch} />
       </div>
     </div>
   );

@@ -1,78 +1,83 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Todo } from "../../models";
+import { Actions, Todo } from "../../models";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
 import "./styles.css";
 
 interface Props {
-  task: Todo;
+  currTask: Todo;
   setTaskLists: React.Dispatch<React.SetStateAction<Todo[]>>;
   taskList: Todo[];
+  dispatch: React.Dispatch<Actions>;
 }
 
-const TaskCard: React.FC<Props> = ({ task, setTaskLists, taskList }) => {
+const TaskCard: React.FC<Props> = ({
+  currTask,
+  setTaskLists,
+  taskList,
+  dispatch,
+}) => {
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [toEditTask, setToEditTask] = useState<string>(task.task);
+  const [toEditTask, setToEditTask] = useState<string>(currTask.task);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDone = (id: number) => {
-    setTaskLists(
-      taskList.map((item) =>
-        item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
-      )
-    );
+    dispatch({ type: "Complete", payload: id });
   };
 
   const handleDelete = (id: number) => {
-    setTaskLists(taskList.filter((item) => item.id !== id));
+    dispatch({ type: "Remove", payload: id });
   };
 
   const handleEdit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
     if (!!toEditTask) {
-      setTaskLists(
-        taskList.map((item) =>
-          item.id === id ? { ...task, task: toEditTask } : item
-        )
-      );
+      dispatch({
+        type: "Edit",
+        payload: {
+          id: id,
+          currTask: currTask,
+          toEditTask: toEditTask,
+        },
+      });
       setEditMode(false);
     }
   };
 
-  useEffect(()=>{
-    inputRef.current?.focus()
-  },[editMode])
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [editMode]);
 
   return (
-    <form className="task-card" onSubmit={(e) => handleEdit(e, task.id)}>
+    <form className="task-card" onSubmit={(e) => handleEdit(e, currTask.id)}>
       {editMode ? (
         <input
           ref={inputRef}
-          placeholder={task.task}
+          placeholder={currTask.task}
           onChange={(e) => setToEditTask(e.target.value)}
         />
-      ) : task.isCompleted ? (
-        <s>{task.task}</s>
+      ) : currTask.isCompleted ? (
+        <s>{currTask.task}</s>
       ) : (
-        <span>{task.task}</span>
+        <span>{currTask.task}</span>
       )}
 
       <div className="task-functions">
         <span
           className="icon"
           onClick={() => {
-            if (!editMode && !task.isCompleted) {
+            if (!editMode && !currTask.isCompleted) {
               setEditMode(!editMode);
             }
           }}
         >
           <AiFillEdit />
         </span>
-        <span className="icon" onClick={() => handleDelete(task.id)}>
+        <span className="icon" onClick={() => handleDelete(currTask.id)}>
           <AiFillDelete />
         </span>
-        <span onClick={() => handleDone(task.id)} className="icon">
+        <span onClick={() => handleDone(currTask.id)} className="icon">
           <MdDone />
         </span>
       </div>
