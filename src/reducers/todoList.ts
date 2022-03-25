@@ -1,6 +1,6 @@
-import { Actions, Todo } from "../models";
+import { ActionsTodo, Todo } from "../models";
 
-const TaskReducer = (state: Todo[], action: Actions) => {
+const TaskReducer = (state: Todo[], action: ActionsTodo) => {
   switch (action.type) {
     case "Add":
       return [
@@ -21,12 +21,14 @@ const TaskReducer = (state: Todo[], action: Actions) => {
 
     case "Remove":
       return state.filter((item) => item.id !== action.payload);
+
     case "Edit":
       return state.map((item) =>
         item.id === action.payload.id
           ? { ...action.payload.currTask, task: action.payload.toEditTask }
           : item
       );
+
     default:
       return state;
   }

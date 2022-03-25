@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Actions, Todo } from "../../models";
+import { ActionsDone, ActionsTodo, Todo } from "../../models";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
 import "./styles.css";
@@ -9,8 +9,10 @@ interface Props {
   currTask: Todo;
   setTaskLists: React.Dispatch<React.SetStateAction<Todo[]>>;
   taskList: Todo[];
-  dispatch: React.Dispatch<Actions>;
+  dispatch: React.Dispatch<ActionsTodo>;
+  dispatchDone: React.Dispatch<ActionsDone>;
   index: number;
+  idList: string;
 }
 
 const TaskCard: React.FC<Props> = ({
@@ -18,6 +20,8 @@ const TaskCard: React.FC<Props> = ({
   setTaskLists,
   taskList,
   dispatch,
+  dispatchDone,
+  idList,
   index,
 }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -26,24 +30,43 @@ const TaskCard: React.FC<Props> = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDone = (id: number) => {
-    dispatch({ type: "Complete", payload: id });
+    if (idList === "done") {
+      dispatchDone({ type: "CompleteDoneList", payload: id });
+    } else {
+      dispatch({ type: "Complete", payload: id });
+    }
   };
 
   const handleDelete = (id: number) => {
-    dispatch({ type: "Remove", payload: id });
+    if (idList === "done") {
+      dispatchDone({ type: "RemoveDoneList", payload: id });
+    } else {
+      dispatch({ type: "Remove", payload: id });
+    }
   };
 
   const handleEdit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
     if (!!toEditTask) {
-      dispatch({
-        type: "Edit",
-        payload: {
-          id: id,
-          currTask: currTask,
-          toEditTask: toEditTask,
-        },
-      });
+      if (idList === "done") {
+        dispatchDone({
+          type: "EditDoneList",
+          payload: {
+            id: id,
+            currTask: currTask,
+            toEditTask: toEditTask,
+          },
+        });
+      } else {
+        dispatch({
+          type: "Edit",
+          payload: {
+            id: id,
+            currTask: currTask,
+            toEditTask: toEditTask,
+          },
+        });
+      }
       setEditMode(false);
     }
   };

@@ -1,13 +1,14 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
-import { Actions, Todo } from "../../models";
+import { ActionsDone, ActionsTodo, Todo } from "../../models";
 import TaskCard from "../TaskCard/TaskCard";
 import "./styles.css";
 
 interface Props {
   taskList: Todo[];
   setTaskLists: React.Dispatch<React.SetStateAction<Todo[]>>;
-  dispatch: React.Dispatch<Actions>;
+  dispatch: React.Dispatch<ActionsTodo>;
+  dispatchDone: React.Dispatch<ActionsDone>;
   completedTasks: Todo[];
   setCompletedTasks: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
@@ -16,6 +17,7 @@ const TaskList: React.FC<Props> = ({
   taskList,
   setTaskLists,
   dispatch,
+  dispatchDone,
   completedTasks,
   setCompletedTasks,
 }) => {
@@ -37,6 +39,8 @@ const TaskList: React.FC<Props> = ({
                 setTaskLists={setTaskLists}
                 taskList={taskList}
                 dispatch={dispatch}
+                dispatchDone={dispatchDone}
+                idList={"todo"}
               />
             ))}
             {provided.placeholder}
@@ -59,6 +63,8 @@ const TaskList: React.FC<Props> = ({
                 setTaskLists={setCompletedTasks}
                 taskList={taskList}
                 dispatch={dispatch}
+                dispatchDone={dispatchDone}
+                idList={"done"}
               />
             ))}
             {provided.placeholder}
